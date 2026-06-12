@@ -18,16 +18,30 @@ compass_desafio/
 ## 🚀 Como rodar
 
 ```bash
-# 1. Criar ambiente virtual
+1. Clonar o repositório
+Abra o terminal onde deseja salvar o projeto e execute:
+
+Bash
+git clone [https://github.com/louise-alonso/compass_desafio.git](https://github.com/louise-alonso/compass_desafio.git)
+2. Acessar a pasta do projeto
+
+Bash
+cd compass_desafio
+3. Criar o ambiente virtual
+
+Bash
 py -m venv .venv
+4. Ativar o ambiente virtual (Windows)
 
-# 2. Ativar (Windows)
+Bash
 .venv\Scripts\activate
+5. Instalar as dependências
 
-# 3. Instalar dependências
+Bash
 py -m pip install -r requirements.txt
+6. Executar os testes
 
-# 4. Executar testes
+Bash
 py -m pytest tests/test_usuarios.py -v
 ```
 
