@@ -1,0 +1,16 @@
+# Ambientes Virtuais
+.venv/
+venv/
+env/
+
+# Caches e Arquivos Temporários
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
