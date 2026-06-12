@@ -1,4 +1,3 @@
-```markdown
 # Desafio Semana 3
 
 Testes automatizados em **Python + Pytest** para o endpoint `/usuarios` da API [ServeRest](https://compassuol.serverest.dev/).
@@ -84,4 +83,3 @@ pytest-html==4.2.0
 - [Requests Docs](https://requests.readthedocs.io/)
 
 ---
-```
