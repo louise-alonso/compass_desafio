@@ -1,4 +1,5 @@
-# Desafio Semana 3
+
+# ServeRest API Tests — Desafio Compass
 
 Testes automatizados em **Python + Pytest** para o endpoint `/usuarios` da API [ServeRest](https://compassuol.serverest.dev/).
 
@@ -8,41 +9,59 @@ Testes automatizados em **Python + Pytest** para o endpoint `/usuarios` da API [
 
 ```
 compass_desafio/
-├── tests/test_usuarios.py   # Todos os testes
-├── requirements.txt         # Dependências
-└── README.md                # Este arquivo
+├── tests/
+│   └── test_usuarios.py   # Todos os testes
+├── requirements.txt       # Dependências
+├── README.md              # Este arquivo
+└── .gitignore             # Arquivos ignorados
 ```
 
 ---
 
-## 🚀 Como rodar
+## 🚀 Como rodar o projeto
+
+### 1. Clone o repositório
 
 ```bash
-1. Clonar o repositório
-Abra o terminal onde deseja salvar o projeto e execute:
-
-Bash
-git clone [https://github.com/louise-alonso/compass_desafio.git](https://github.com/louise-alonso/compass_desafio.git)
-2. Acessar a pasta do projeto
-
-Bash
+git clone https://github.com/louise-alonso/compass_desafio.git
 cd compass_desafio
-3. Criar o ambiente virtual
+```
 
-Bash
+### 2. Criar ambiente virtual
+
+```bash
 py -m venv .venv
-4. Ativar o ambiente virtual (Windows)
+```
 
-Bash
+### 3. Ativar ambiente virtual
+
+**Windows:**
+```bash
 .venv\Scripts\activate
-5. Instalar as dependências
+```
 
-Bash
+**Linux/Mac:**
+```bash
+source .venv/bin/activate
+```
+
+### 4. Instalar dependências
+
+```bash
 py -m pip install -r requirements.txt
-6. Executar os testes
+```
 
-Bash
+### 5. Executar testes
+
+```bash
+# Todos os testes
 py -m pytest tests/test_usuarios.py -v
+
+# Com relatório HTML
+py -m pytest tests/test_usuarios.py -v --html=reports/report.html
+
+# Apenas testes específicos
+py -m pytest tests/test_usuarios.py -v -k "cadastrar"
 ```
 
 ---
@@ -95,5 +114,4 @@ pytest-html==4.2.0
 - [ServeRest API](https://compassuol.serverest.dev/)
 - [Pytest Docs](https://docs.pytest.org/)
 - [Requests Docs](https://requests.readthedocs.io/)
-
----
+- [Repositório no GitHub](https://github.com/louise-alonso/compass_desafio)
