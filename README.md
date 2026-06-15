@@ -5,7 +5,7 @@ Testes automatizados em **Python + Pytest** para o endpoint `/usuarios` da API [
 
 ---
 
-## 📁 Estrutura
+## Estrutura
 
 ```
 compass_desafio/
@@ -18,7 +18,7 @@ compass_desafio/
 
 ---
 
-## 🚀 Como rodar o projeto
+## Como rodar o projeto
 
 ### 1. Clone o repositório
 
@@ -66,29 +66,24 @@ py -m pytest tests/test_usuarios.py -v -k "cadastrar"
 
 ---
 
-## 📋 Cenários testados (15 testes)
+## Cenários testados (10 testes)
 
 | # | Método | Endpoint | Cenário |
-|---|--------|----------|----------|
-| 1 | GET | `/usuarios` | Listar usuários → 200 |
-| 2 | GET | `/usuarios` | Validar estrutura (quantidade + usuarios) |
-| 3 | GET | `/usuarios` | Quantidade = tamanho da lista |
-| 4 | POST | `/usuarios` | Cadastro válido → 201 |
-| 5 | POST | `/usuarios` | Email duplicado → 400 |
-| 6 | POST | `/usuarios` | Sem campo "nome" → 400 |
-| 7 | POST | `/usuarios` | Sem campo "email" → 400 |
-| 8 | POST | `/usuarios` | Sem campo "password" → 400 |
-| 9 | GET | `/usuarios/{id}` | ID válido → 200 + dados corretos |
-| 10 | GET | `/usuarios/{id}` | ID inexistente → 400 |
-| 11 | PUT | `/usuarios/{id}` | Atualizar usuário existente → 200 |
-| 12 | PUT | `/usuarios/{id}` | Atualização parcial → 400 |
-| 13 | DELETE | `/usuarios/{id}` | Excluir usuário existente → 200 |
-| 14 | DELETE | `/usuarios/{id}` | Excluir mesmo usuário duas vezes → idempotente |
-| 15 | DELETE | `/usuarios/{id}` | ID inexistente → 200 + "Nenhum registro excluído" |
+| --- | --- | --- | --- |
+| 1 | GET | `/usuarios` | Listar usuários com sucesso (Status 200 + estrutura) |
+| 2 | POST | `/usuarios` | Cadastro válido → 201 |
+| 3 | POST | `/usuarios` | Email duplicado → 400 |
+| 4 | POST | `/usuarios` | Sem campo "nome" → 400 |
+| 5 | POST | `/usuarios` | Sem campo "email" → 400 |
+| 6 | POST | `/usuarios` | Sem campo "password" → 400 |
+| 7 | GET | `/usuarios/{id}` | Buscar por ID válido → 200 + validação de dados |
+| 8 | GET | `/usuarios/{id}` | Buscar por ID inexistente → 400 |
+| 9 | PUT | `/usuarios/{id}` | Atualizar usuário existente → 200 |
+| 10 | DELETE | `/usuarios/{id}` | Excluir usuário existente → 200 |
 
 ---
 
-## 📦 Dependências
+## Dependências
 
 ```txt
 pytest==9.0.3
@@ -99,7 +94,7 @@ pytest-html==4.2.0
 
 ---
 
-## 🧠 Decisões técnicas
+## Decisões técnicas
 
 - **Emails dinâmicos** com `Faker` para evitar conflitos
 - **Limpeza automática** após cada teste (`requests.delete`)
@@ -109,7 +104,7 @@ pytest-html==4.2.0
 
 ---
 
-## 🔗 Links
+## Links
 
 - [ServeRest API](https://compassuol.serverest.dev/)
 - [Pytest Docs](https://docs.pytest.org/)
