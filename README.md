@@ -184,6 +184,3 @@ Os testes são executados automaticamente a cada push. O relatório HTML fica di
 - [Documentação do Pytest](https://docs.pytest.org/)
 - [Documentação do Requests](https://requests.readthedocs.io/)
 - [Repositório no GitHub](https://github.com/louise-alonso/compass_desafio)
-```
-
----
