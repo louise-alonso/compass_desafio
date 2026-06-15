@@ -28,7 +28,7 @@ Garantir a confiabilidade das operações de CRUD e dos mecanismos de autentica�
 | 9 | PUT | Atualizar usuário existente com sucesso | 200 |
 | 10 | DELETE | Excluir usuário existente com sucesso | 200 |
 
-### `/login` (Pendente)
+### `/login` (Concluído)
 | # | Método | Cenário | Status Esperado |
 |---|--------|---------|-----------------|
 | 8 | POST | Login com credenciais válidas | 200 |
@@ -36,7 +36,7 @@ Garantir a confiabilidade das operações de CRUD e dos mecanismos de autentica�
 | 10 | POST | Erro de login com email não cadastrado | 401 |
 | 11 | POST | Erro de login com campos ausentes | 400 |
 
-### `/produtos` (Pendente)
+### `/produtos` (Concluído)
 | # | Método | Cenário | Status Esperado |
 |---|--------|---------|-----------------|
 | 12 | GET | Listar produtos com sucesso | 200 |
