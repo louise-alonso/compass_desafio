@@ -1,7 +1,8 @@
-
 # ServeRest API Tests — Desafio Compass
 
-Testes automatizados em **Python + Pytest** para o endpoint `/usuarios` da API [ServeRest](https://compassuol.serverest.dev/).
+Testes automatizados em **Python + Pytest** para a API [ServeRest](https://compassuol.serverest.dev/).
+
+![Testes](https://github.com/louise-alonso/compass_desafio/actions/workflows/test.yml/badge.svg)
 
 ---
 
@@ -9,11 +10,20 @@ Testes automatizados em **Python + Pytest** para o endpoint `/usuarios` da API [
 
 ```
 compass_desafio/
+├── .github/
+│   └── workflows/
+│       └── test.yml              # GitHub Actions (Extra 2)
 ├── tests/
-│   └── test_usuarios.py   # Todos os testes
-├── requirements.txt       # Dependências
-├── README.md              # Este arquivo
-└── .gitignore             # Arquivos ignorados
+│   ├── test_usuarios.py          # CRUD /usuarios (10 testes)
+│   ├── test_login.py             # Autenticação /login (4 testes)
+│   ├── test_produtos.py          # CRUD /produtos (7 testes)
+│   └── test_json_schema.py       # Validação de schema (Extra 1)
+├── reports/
+│   └── report.html               # Relatório gerado automaticamente
+├── PLANO-DE-TESTES.md            # Planejamento da suíte
+├── README.md                     # Este arquivo
+├── requirements.txt              # Dependências
+└── .gitignore                    # Arquivos ignorados
 ```
 
 ---
@@ -30,7 +40,7 @@ cd compass_desafio
 ### 2. Criar ambiente virtual
 
 ```bash
-py -m venv .venv
+python -m venv .venv
 ```
 
 ### 3. Ativar ambiente virtual
@@ -48,38 +58,69 @@ source .venv/bin/activate
 ### 4. Instalar dependências
 
 ```bash
-py -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 5. Executar testes
 
 ```bash
 # Todos os testes
-py -m pytest tests/test_usuarios.py -v
+pytest tests/ -v
 
 # Com relatório HTML
-py -m pytest tests/test_usuarios.py -v --html=reports/report.html
+pytest tests/ -v --html=reports/report.html --self-contained-html
 
-# Apenas testes específicos
-py -m pytest tests/test_usuarios.py -v -k "cadastrar"
+# Módulo específico
+pytest tests/test_usuarios.py -v
 ```
 
 ---
 
-## Cenários testados (10 testes)
+## Cenários testados (24 testes)
 
-| # | Método | Endpoint | Cenário |
-| --- | --- | --- | --- |
-| 1 | GET | `/usuarios` | Listar usuários com sucesso (Status 200 + estrutura) |
-| 2 | POST | `/usuarios` | Cadastro válido → 201 |
-| 3 | POST | `/usuarios` | Email duplicado → 400 |
-| 4 | POST | `/usuarios` | Sem campo "nome" → 400 |
-| 5 | POST | `/usuarios` | Sem campo "email" → 400 |
-| 6 | POST | `/usuarios` | Sem campo "password" → 400 |
-| 7 | GET | `/usuarios/{id}` | Buscar por ID válido → 200 + validação de dados |
-| 8 | GET | `/usuarios/{id}` | Buscar por ID inexistente → 400 |
-| 9 | PUT | `/usuarios/{id}` | Atualizar usuário existente → 200 |
-| 10 | DELETE | `/usuarios/{id}` | Excluir usuário existente → 200 |
+### /usuarios (10 testes)
+
+| # | Método | Cenário | Status |
+|---|--------|---------|--------|
+| 1 | GET | Listar usuários | 200 |
+| 2 | POST | Cadastro válido | 201 |
+| 3 | POST | Email duplicado | 400 |
+| 4 | POST | Sem campo "nome" | 400 |
+| 5 | POST | Sem campo "email" | 400 |
+| 6 | POST | Sem campo "password" | 400 |
+| 7 | GET | Buscar por ID válido | 200 |
+| 8 | GET | Buscar por ID inexistente | 400 |
+| 9 | PUT | Atualizar usuário | 200 |
+| 10 | DELETE | Excluir usuário | 200 |
+
+### /login (4 testes)
+
+| # | Método | Cenário | Status |
+|---|--------|---------|--------|
+| 1 | POST | Credenciais válidas | 200 |
+| 2 | POST | Senha incorreta | 401 |
+| 3 | POST | Email não cadastrado | 401 |
+| 4 | POST | Campos ausentes | 400 |
+
+### /produtos (7 testes)
+
+| # | Método | Cenário | Status |
+|---|--------|---------|--------|
+| 1 | GET | Listar produtos | 200 |
+| 2 | POST | Cadastrar como admin | 201 |
+| 3 | POST | Cadastrar como usuário comum | 403 |
+| 4 | POST | Cadastrar sem token | 401 |
+| 5 | GET | Buscar por ID válido | 200 |
+| 6 | PUT | Atualizar produto | 200 |
+| 7 | DELETE | Excluir produto | 200 |
+
+### JSON Schema (3 testes)
+
+| # | Endpoint | Schema validado |
+|---|----------|-----------------|
+| 1 | GET /usuarios | Estrutura da listagem |
+| 2 | POST /login | Resposta de autenticação |
+| 3 | GET /produtos | Estrutura da listagem |
 
 ---
 
@@ -90,17 +131,19 @@ pytest==9.0.3
 requests==2.34.2
 faker==40.23.0
 pytest-html==4.2.0
+jsonschema==4.23.0
 ```
 
 ---
 
 ## Decisões técnicas
 
-- **Emails dinâmicos** com `Faker` para evitar conflitos
-- **Limpeza automática** após cada teste (`requests.delete`)
-- **Verificação dupla**: status code + conteúdo da resposta
-- **Testes independentes** (cada um cria e limpa seus dados)
-- **Asserts flexíveis** para lidar com acentos da API
+- **Dados dinâmicos** com `Faker` para evitar conflitos entre execuções
+- **Limpeza automática** via fixtures com `yield` (teardown após cada teste)
+- **Verificação dupla**: status code + conteúdo do JSON
+- **Testes independentes**: cada teste cria e limpa seus próprios dados
+- **JSON Schema**: valida estrutura das respostas em 3 endpoints (Extra 1)
+- **CI/CD**: GitHub Actions executa os testes a cada push (Extra 2)
 
 ---
 
@@ -109,40 +152,41 @@ pytest-html==4.2.0
 - **Método:** Operator Coverage (Cobertura de Operações)
 - **Cobertura total:** 68,75% (11/16 operações)
 - **Cenários fora do escopo:** Endpoint `/carrinhos` e testes de performance
-- **Bugs encontrados:** 2 bugs reportados (ver Issues #1, #2 e #3)
 
-### O que ficou de fora e por quê?
+### O que ficou de fora
 
-Como já foi definido e delimitado no arquivo **PLANO-DE-TESTES.md**, deixei alguns cenários fora do escopo desta etapa:
-
-1. **Endpoint de Carrinhos (`/carrinhos`):** Priorizei as regras de negócio base da aplicação (gestão de usuários, login e o catálogo de produtos com trava de admin). O fluxo transacional de carrinhos ficou para uma próxima iteração.
-2. **Combinações exaustivas de parâmetros (Parameter Value Coverage):** Validei os cenários críticos e a ausência de campos obrigatórios. Não testei todas as combinações possíveis de dados inválidos ou limites de caracteres para manter a suíte rodando rápido e focada no que é essencial no momento.
+1. **Endpoint /carrinhos:** Prioridade para regras de negócio base (usuários, autenticação e catálogo de produtos)
+2. **Combinações exaustivas:** Foco em cenários críticos para manter a suíte rápida e objetiva
 
 ---
 
-## JSON Schema (Extra 1)
+## Bugs Reportados
 
-Validação da estrutura das respostas da API usando JSON Schema.
+| # | Título | Severidade |
+|---|--------|-----------|
+| 1 | DELETE em produto já excluído retorna 200 ao invés de 404 | Média |
+| 2 | API aceita cadastro de produto com nome contendo apenas espaços | Alta |
+| 3 | GET /usuarios/ com ID vazio retorna listagem completa | Baixa |
 
-### Schemas implementados
+---
 
-| Endpoint | Schema | O que valida |
-|----------|--------|--------------|
-| `GET /usuarios` | `SCHEMA_LISTAR_USUARIOS` | Estrutura da listagem: `quantidade` (int) + array `usuarios` com campos obrigatórios |
-| `POST /login` | `SCHEMA_LOGIN_SUCESSO` | Resposta de login: `message` (string) + `authorization` (string ≥ 10 caracteres) |
-| `GET /produtos` | `SCHEMA_LISTAR_PRODUTOS` | Estrutura da listagem: `quantidade` (int) + array `produtos` com campos obrigatórios |
+## GitHub Actions (Extra 2)
 
-### Tecnologia
-- Biblioteca: `jsonschema`
-- Validação: `validate(instance=resposta, schema=SCHEMA)`
-- Tratamento de erros: `pytest.fail()` com mensagem descritiva
+Os testes são executados automaticamente a cada push. O relatório HTML fica disponível como artefato para download.
+
+[Ver histórico de execuções](https://github.com/louise-alonso/compass_desafio/actions)
 
 ---
 
 ## Links
 
 - [ServeRest API](https://compassuol.serverest.dev/)
-- [Pytest Docs](https://docs.pytest.org/)
-- [Requests Docs](https://requests.readthedocs.io/)
+- [Documentação do Pytest](https://docs.pytest.org/)
+- [Documentação do Requests](https://requests.readthedocs.io/)
 - [Repositório no GitHub](https://github.com/louise-alonso/compass_desafio)
-- ![Testes](https://github.com/louise-alonso/compass_desafio/actions/workflows/test.yml/badge.svg)
+```
+
+---
+git commit -m "docs: atualiza README com estrutura completa, todos os cenarios e extras"
+git push
+```
