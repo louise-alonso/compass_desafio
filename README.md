@@ -103,6 +103,7 @@ pytest-html==4.2.0
 - **Asserts flexíveis** para lidar com acentos da API
 
 ---
+
 ## Cobertura de Testes
 
 - **Método:** Operator Coverage (Cobertura de Operações)
@@ -116,6 +117,26 @@ Como já foi definido e delimitado no arquivo **PLANO-DE-TESTES.md**, deixei alg
 
 1. **Endpoint de Carrinhos (`/carrinhos`):** Priorizei as regras de negócio base da aplicação (gestão de usuários, login e o catálogo de produtos com trava de admin). O fluxo transacional de carrinhos ficou para uma próxima iteração.
 2. **Combinações exaustivas de parâmetros (Parameter Value Coverage):** Validei os cenários críticos e a ausência de campos obrigatórios. Não testei todas as combinações possíveis de dados inválidos ou limites de caracteres para manter a suíte rodando rápido e focada no que é essencial no momento.
+
+---
+
+## JSON Schema (Extra 1)
+
+Validação da estrutura das respostas da API usando JSON Schema.
+
+### Schemas implementados
+
+| Endpoint | Schema | O que valida |
+|----------|--------|--------------|
+| `GET /usuarios` | `SCHEMA_LISTAR_USUARIOS` | Estrutura da listagem: `quantidade` (int) + array `usuarios` com campos obrigatórios |
+| `POST /login` | `SCHEMA_LOGIN_SUCESSO` | Resposta de login: `message` (string) + `authorization` (string ≥ 10 caracteres) |
+| `GET /produtos` | `SCHEMA_LISTAR_PRODUTOS` | Estrutura da listagem: `quantidade` (int) + array `produtos` com campos obrigatórios |
+
+### Tecnologia
+- Biblioteca: `jsonschema`
+- Validação: `validate(instance=resposta, schema=SCHEMA)`
+- Tratamento de erros: `pytest.fail()` com mensagem descritiva
+
 ---
 
 ## Links
