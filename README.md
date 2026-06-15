@@ -103,6 +103,20 @@ pytest-html==4.2.0
 - **Asserts flexíveis** para lidar com acentos da API
 
 ---
+## Cobertura de Testes
+
+- **Método:** Operator Coverage (Cobertura de Operações)
+- **Cobertura total:** 68,75% (11/16 operações)
+- **Cenários fora do escopo:** Endpoint `/carrinhos` e testes de performance
+- **Bugs encontrados:** 2 bugs reportados (ver Issues #1, #2 e #3)
+
+### O que ficou de fora e por quê?
+
+Como já foi definido e delimitado no arquivo **PLANO-DE-TESTES.md**, deixei alguns cenários fora do escopo desta etapa:
+
+1. **Endpoint de Carrinhos (`/carrinhos`):** Priorizei as regras de negócio base da aplicação (gestão de usuários, login e o catálogo de produtos com trava de admin). O fluxo transacional de carrinhos ficou para uma próxima iteração.
+2. **Combinações exaustivas de parâmetros (Parameter Value Coverage):** Validei os cenários críticos e a ausência de campos obrigatórios. Não testei todas as combinações possíveis de dados inválidos ou limites de caracteres para manter a suíte rodando rápido e focada no que é essencial no momento.
+---
 
 ## Links
 
