@@ -187,6 +187,3 @@ Os testes são executados automaticamente a cada push. O relatório HTML fica di
 ```
 
 ---
-git commit -m "docs: atualiza README com estrutura completa, todos os cenarios e extras"
-git push
-```
