@@ -1,16 +1,14 @@
-# Ambientes Virtuais
-.venv/
-venv/
-env/
-
-# Caches e Arquivos Temporários
+# Python
 __pycache__/
 *.py[cod]
+.venv/
 .pytest_cache/
 
-# Editores
+# Relatórios (opcional, se quiser manter)
+# reports/
+
+# VS Code
 .vscode/
-.idea/
-*.swp
-*.swo
-*~
+
+# Ambiente
+.env

@@ -145,3 +145,4 @@ Validação da estrutura das respostas da API usando JSON Schema.
 - [Pytest Docs](https://docs.pytest.org/)
 - [Requests Docs](https://requests.readthedocs.io/)
 - [Repositório no GitHub](https://github.com/louise-alonso/compass_desafio)
+- ![Testes](https://github.com/louise-alonso/compass_desafio/actions/workflows/test.yml/badge.svg)
